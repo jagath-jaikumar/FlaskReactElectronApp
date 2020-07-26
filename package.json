@@ -16,7 +16,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "electron-start": "npm run build && electron .",
+    "electron-prebuilt": "electron .",
+    "electron-start":"npm run build && electron .",
+    "pyinstaller_flask": "pyinstaller -F ./python/app.py --workpath ./python_build --distpath ./python_dist --specpath ./python_spec",
+    "clean":"rm -rf python_build python_dist python_spec build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

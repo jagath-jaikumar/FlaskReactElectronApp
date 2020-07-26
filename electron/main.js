@@ -3,6 +3,7 @@ const path = require('path');
 const url = require('url');
 const config = require('./config.js');
 const psTree = require('ps-tree');
+const {spawn} = require('child_process');
 
 let mainWindow;
 let pythonProcess = null;
@@ -25,12 +26,8 @@ function getPythonFilePath(pythonFileName) {
 function createPythonProcess(pythonFileName, pythonArgs) {
   let pythonFilePath = getPythonFilePath(pythonFileName);
   pythonArgs.unshift(pythonFilePath);
-  pythonProcess = require('child_process').spawn('python', pythonArgs);
+  pythonProcess = spawn('python', pythonArgs, {stdio: [process.stdin, process.stdout, process.stderr]});
 
-  pythonProcess.stdout.on('data', async (data) => {
-    let dataString = data.toString();
-    console.log(dataString)
-  });
 
   return pythonProcess;
 }
