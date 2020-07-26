@@ -26,11 +26,13 @@
     "validate.js": "^0.13.1"
   },
   "scripts": {
+    "electron-start": "npm run build && electron .",
+    "electron-dev":"export RUN_ENV=dev && npm run watch & electron .",
     "start": "react-scripts start",
     "electron-prebuilt": "electron .",
-    "electron-start": "npm run build && electron .",
     "pyinstaller_flask": "pyinstaller -F ./python/app.py --workpath ./python_build --distpath ./python_dist --specpath ./python_spec",
     "clean": "rm -rf python_build python_dist python_spec build",
+    "watch": "npm-watch",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -51,6 +53,10 @@
     ]
   },
   "devDependencies": {
-    "electron": "^9.1.1"
+    "electron": "^9.1.1",
+    "npm-watch": "^0.6.0"
+  },
+  "watch": {
+    "build": "src/"
   }
 }

@@ -14,7 +14,8 @@ import {
   Settings as SettingsView,
   SignUp as SignUpView,
   SignIn as SignInView,
-  NotFound as NotFoundView
+  NotFound as NotFoundView,
+  SampleSpace as SampleSpaceView
 } from './views';
 
 const Routes = () => {
@@ -23,7 +24,13 @@ const Routes = () => {
       <Redirect
         exact
         from="/"
-        to="/dashboard"
+        to="/samplespace"
+      />
+      <RouteWithLayout
+        component={SampleSpaceView}
+        exact
+        layout={MainLayout}
+        path="/samplespace"
       />
       <RouteWithLayout
         component={DashboardView}
