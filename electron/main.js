@@ -1,9 +1,13 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, protocol } = require('electron');
 const path = require('path');
 const url = require('url');
 const config = require('./config.js');
 const psTree = require('ps-tree');
 const {spawn} = require('child_process');
+
+const serve = require('electron-serve');
+const loadURL = serve({directory: path.join(__dirname, '../build/')});
+console.log(path.join(__dirname, '../build/images/logos'))
 
 let mainWindow;
 let pythonProcess = null;
@@ -34,13 +38,14 @@ function createPythonProcess(pythonFileName, pythonArgs) {
 
 
 function createWindow () {
-  const startUrl = process.env.ELECTRON_START_URL || url.format({
+  const startUrl = url.format({
     pathname: path.join(__dirname, '../build/index.html'),
     protocol: 'file:',
     slashes: true,
   });
-  mainWindow = new BrowserWindow({ width: 1000, height: 800 });
-  mainWindow.loadURL(startUrl);
+  mainWindow = new BrowserWindow({ width: 1700, height: 1200 });
+//  mainWindow.loadURL(startUrl);
+  loadURL(mainWindow);
   mainWindow.on('closed', function () {
     mainWindow = null;
   });
@@ -54,7 +59,9 @@ function createWindow () {
   );
 }
 
-app.on('ready', createWindow);
+app.on('ready', () => {
+  createWindow()
+});
 
 
 const deleteChildren = (rootPid) => {

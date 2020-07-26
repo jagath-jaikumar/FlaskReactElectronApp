@@ -1,4 +1,4 @@
-const DEBUG = false;
+const DEBUG = true;
 
 const PYTHON_DIR = 'python';
 const PYTHON_DIST_DIR = 'python_dist';
