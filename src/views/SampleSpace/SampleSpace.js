@@ -41,7 +41,7 @@ const SampleSpace = () => {
 class NameForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { name: '' };
+    this.state = { name: '' ,  status: 'None'};
   }
 
   handleChange = (event) => {
@@ -49,23 +49,30 @@ class NameForm extends React.Component {
   }
 
   handleSubmit = (event) => {
-    alert('A form was submitted: ' + this.state);
+    alert('A form was submitted: ' + JSON.stringify(this.state));
 
     fetch('http://localhost:5000/parse_dict', {
         method: 'POST',
         // We convert the React state to JSON and send it as the POST body
         body: JSON.stringify(this.state)
-      }).then(async function(response) {
-        const data = await response.json();
-        console.log(data);
-        return data;
-      });
+      })
+      .then(response => { return response.json();})
+    .then(responseData => {return responseData;})
+    .then(data => {
+      console.log(data);
+      this.setState({"status" : data.message });
+    })
+
+    .catch(err => {
+        console.log("fetch error" + err);
+    });
 
     event.preventDefault();
 }
 
   render() {
     return (
+    <div>
       <form onSubmit={this.handleSubmit}>
         <label>
           Account Name:
@@ -73,6 +80,13 @@ class NameForm extends React.Component {
         </label>
         <input type="submit" value="Submit" />
       </form>
+      <div>
+        <h6>Status:</h6>
+        <ul>
+          {this.state.status}
+        </ul>
+      </div>
+    </div>
     );
   }
 }

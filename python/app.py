@@ -1,8 +1,14 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 import json
+import os
 
 app = Flask(__name__)
+
+try:
+    debug = os.environ['RUN_ENV']=='dev'
+except:
+    debug = False
 
 @app.route("/hello")
 def hello_route():
@@ -17,4 +23,4 @@ def parse_dict_route():
     return jsonify({"message":"success"})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=debug)
