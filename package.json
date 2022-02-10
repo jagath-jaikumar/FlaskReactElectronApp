@@ -15,7 +15,7 @@
     "chart.js": "^2.9.3",
     "electron-serve": "^1.0.0",
     "icons": "^1.0.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "ps-tree": "^1.2.0",
     "react": "^16.13.1",
     "react-chartjs-2": "^2.9.0",
